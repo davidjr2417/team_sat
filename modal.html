@@ -1,0 +1,411 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.7/lunr.min.js" charset="utf-8"></script>
+
+<style media="screen">
+  .provided-links span{
+        color: #40a556;
+        text-decoration:underline;
+        cursor:pointer;
+  }
+  #exampleModal input{
+    color:black!important;
+  }
+  #exampleModal .row{
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+  #exampleModal{bu}
+  .resource-form{
+    margin-top:40px;
+  }
+  .layout ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resource-next.resource-show   {
+	opacity: 1;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	pointer-events: auto;
+}
+  .resource-next  {
+    font-size:.8em;
+	padding:5px !important;
+    display: block;
+    padding: 0;
+    /*width: 4em;*/
+    /*height: 1em;*/
+    border: 2px solid white;
+    background: none;
+      border-radius: 35px !important;
+      position: absolute !important;
+      right: 20px !important;
+	/*color: rgba(0,0,0,0.4);*/
+	color: #ffffff;
+	text-align: center;
+	opacity: 0;
+	z-index: 100;
+	cursor: pointer;
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transform: translateX(-20%);
+	transform: translateX(-20%);
+	pointer-events: none;
+	-webkit-tap-highlight-color: #000000;
+  }
+
+  .resource-next:hover {
+	color:#ffffff;
+     border: 2px solid #59bf6f;
+     border-radius: 35px !important;
+     background-color: #59bf6f;
+}
+  .glossary input[type=search] {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: #17204B;
+    padding: 5px;
+    width: 50%;
+    max-width: 350px;
+  }
+
+  .toggle {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid #17204B;
+    float: right;
+    padding: 5px;
+    background-color: white;
+  }
+  .toggle:hover {
+    cursor: pointer;
+    background-color: #f2f2f2;
+  }
+  .toggle:active {
+    background-color: #d9d9d9;
+  }
+
+  .glossary section {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transition: .5s ease all;
+    transition: .5s ease all;
+    padding: 5% 0;
+    /* Temp: Just spacing. */
+  }
+
+  .go-glossary {
+    cursor: pointer;
+    border-bottom: 1px dashed black;
+  }
+
+
+  .glossary-terms {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .term {
+    padding: 1em;
+    margin-bottom:30px;
+  }
+  .term:first-child {
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .term:last-child {
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+
+  .tag {
+    background-color: #17204B;
+    border-radius: 50px;
+    padding: 5px 10px;
+    margin-right: 5px;
+  }
+  .tag:last-child {
+    margin-right: 0;
+  }
+  .tag:hover {
+    background-color: #233172;
+    cursor: pointer;
+  }
+  .term img{
+    width:100% !important;
+  }
+  .term h3{
+    margin-bottom:40px;
+  }
+</style>
+<script type="text/javascript">
+  var DATA = [{
+      "name": "BOEN Monthly Meeting Notes",
+      "description": "Greetings brothers, thanks for your service to the network. Below you will find links to meeting notes from our recent meetings.",
+
+      "hyperlink": [{
+        "title": "Check This Out",
+        "label": "BOEN Monthly Meeting Notes",
+        "alink": "http://brotherhoodofelders.net/resource/resources-1/",
+          "passcode": 1
+      }],
+
+      "image": ["http://brotherhoodofelders.net/wp-content/uploads/2017/09/IMG_3653-e1504288656453-400x200.jpg"],
+      "alt": ["BOEN Monthly Meeting Notes"]
+
+    },
+    {
+      "name": "The Art of Being a Black Man",
+      "description": "Access to the online version of the Art of Being a Black Man is available to participants that have attended a previous training (click the link below and enter the password you were given during the training).",
+
+
+      "hyperlink": [{
+          "title": "Check This Out",
+          "label": "The Art of Being A Black Man Preview",
+          "alink": "http://brotherhoodofelders.net/wp-content/uploads/2017/11/Art-of-Being-Preview.pdf",
+          "passcode": 0
+        },
+        {
+          "title": "Check This Out",
+          "label": "The Art of Being A Black Man",
+          "alink": "http://brotherhoodofelders.net/resource/full-version-of-the-art-of-being-a-black-man/",
+          "passcode": 1
+        }
+
+      ],
+      "image": ["http://brotherhoodofelders.net/wp-content/uploads/2014/03/ABBM_Final_Curriculum-cover-400x200.png"],
+      "alt": ["The Art of Being a Black Man"]
+
+    },
+    {
+      "name": "Governance Structure and Committees",
+      "description": "Powerpoint on the Governance and Network Structure Of The Brotherhood Of Elders Network.",
+
+
+      "hyperlink": [
+        {
+          "title": "Check This Out",
+          "label": "Governance Structure and Committees PDF",
+          "alink": "http://brotherhoodofelders.net/wp-content/uploads/2018/02/BOEN-Governance-Structure-with-Committees10-2017.pdf",
+          "passcode": 0
+        }
+
+      ],
+      "image": ["http://brotherhoodofelders.net/wp-content/uploads/2018/02/Screen-Shot-2018-02-25-at-6.47.48-PM-500x374.png"],
+      "alt": ["Governance Structure and Committees"]
+
+    },
+    {
+      "name": "Visions For The Brotherhood",
+      "description": "Powerpoint on the Governance and Network Structure Of The Brotherhood Of Elders Network.",
+
+
+      "hyperlink": [
+        {
+          "title": "Check This Out",
+          "label": "Visions For The Brotherhood Powerpoint",
+          "alink": "https://docs.google.com/presentation/d/e/2PACX-1vQ_uypSTuVf_Pcq7QLmTbeTvHbhgJ3IVx9T71HBgW8u6Xj3YeZOX9H7k03peQxKDgp_VBd3B54qH4Kv/embed?start=false&amp;loop=true&amp;delayms=3000",
+          "passcode": 1
+        }
+
+      ],
+      "image": ["http://brotherhoodofelders.net/wp-content/uploads/2019/02/Screen-Shot-2019-02-27-at-8.12.00-PM.png"],
+      "alt": ["Visions For The Brotherhood"]
+
+    }
+  ]
+</script>
+<script type="text/javascript">
+  /*Handlebars.registerHelper('list', function(obj) {
+  var out = "";
+
+  for(var i=0, l=obj.length; i<l; i++) {
+    out = out + "<p>" + obj[i].title + ": <span><a href='"+obj[i].alink +"' target='_blank' data-toggle='modal' data-target='#exampleModal'>"+obj[i].label +"</a></span></p>";
+  }
+
+  return out;
+});*/
+
+  Handlebars.registerHelper('list', function(obj) {
+    var out = "";
+
+    for (var i = 0, l = obj.length; i < l; i++) {
+      // alert(obj[i].passcode);
+      if(obj[i].passcode==1){
+      out = out + "<p>" + obj[i].title + ": <span  data-toggle='modal' data-target='#exampleModal' class='" +  obj[i].label.replace(/\s/g, '')  + "'  onClick='openResource(this.className)'>" + obj[i].label + "<a href='" + obj[i].alink +
+        "' ></a></span></p>";
+      }
+      else{
+          out = out + "<p>" + obj[i].title + ": <span><a href='"+obj[i].alink +"' target='_blank' >"+obj[i].label +"</a></span></p>";
+      }
+    }
+
+    return out;
+  });
+  $(function() {
+    var loadedData = false,
+      $wrapper = $('.wrapper'),
+      source = $('#glossary-template').html(),
+      template = Handlebars.compile(source),
+      $termsList = $('.glossary-terms'),
+      $search = $('input[type=search]'),
+      terms;
+
+    // After each key stroke compare the search box query against the name and description of each term
+    $search.on('keyup input propertychange paste', function() {
+      var filtered = filterTerms(terms);
+      // Recompile the template with the filtered,alphebetized terms list
+      compileTemplate(filtered);
+    });
+
+    function loadData(filter) {
+      $termsList.empty().append('<li>Loading terms...</li>');
+      getData(filter, DATA);
+    }
+
+    function getData(filter, data) {
+      terms = data;
+      if (filter) data = filterTerms(terms);
+      compileTemplate(data);
+      loadedData = true;
+    }
+
+    function filterTerms(data) {
+      var query = $search.val().toLowerCase();
+      return $.grep(data, function(obj) {
+        return (obj.name.toLowerCase().indexOf(query) >= 0 || obj.description.toLowerCase().indexOf(query) >= 0);
+      });
+    }
+
+    function compileTemplate(data) {
+      data.sort(compare);
+      $termsList.empty().append(template({
+        'terms': data
+      }));
+      registerTagHandler();
+    }
+
+    // change search term when user clicks a tag
+    function registerTagHandler() {
+      var $tag = $('.tag');
+      $tag.on('click', function() {
+        $search.val($(this).text());
+
+        var filtered = filterTerms(terms);
+        compileTemplate(filtered);
+      });
+    }
+
+    //filter function for ordering glossary terms
+    function compare(a, b) {
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
+      return 0;
+    }
+
+    $(document).ready(function() {
+      if (!loadedData) loadData();
+      $wrapper.addClass('show-glossary');
+    });
+  });
+</script>
+
+<!-- We're using Handlesbars.js to template the glossary terms -->
+<script id="glossary-template" type="x-handlebars-template">
+  {{#terms}}
+    <li class="term">
+      <h3>{{name }} </h3>
+      <div class="row">
+        <div class="col-sm-3">
+          <img src={{ image }} alt={{ alt }}>
+        </div>
+        <div class="col-sm-9">
+          <p>{{{ description }}}</p>
+          <div class="provided-links">
+            {{#list hyperlink}}{{/list}}
+          </div>
+        </div>
+      </div>
+      </li>
+      {{/terms}}
+    </script>
+    <script type="text/javascript">
+      var PLACEHOLDER = "boen2017";
+
+      function submitPasscode(e) {
+
+    //    alert("btn pressed");
+        var val = $("#lResource-hidden-message").text();
+        var passcode = $("#lResource-passcode").val();
+        // alert(passcode == PLACEHOLDER);
+        // console.log(passcode);
+        // console.log(PLACEHOLDER);
+
+        if (passcode == PLACEHOLDER) {
+          // console.log(val.split(" "));
+          // var num = val.split(" ")[0];
+          // var eleId = val.split(" ")[1];
+          // console.log(eleId);
+          // console.log(num);
+          var anchorTag = $("." + val + " a").attr("href");
+          // alert(anchorTag);
+          // console.log(anchorTag);
+          // window.location.replace(anchorTag);
+        window.location.href =anchorTag;
+
+
+        }
+      }
+      $(document).keydown(function(e) {
+        if (e.which === 13) {
+
+          e.preventDefault();
+          submitPasscode(e);
+        }
+      });
+
+
+
+      function openResource(e) {
+
+        $("#lResource-hidden-message").text(e);
+
+      }
+    </script>
